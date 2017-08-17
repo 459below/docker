@@ -1,4 +1,6 @@
-FROM php:7.1-apache
+FROM 459below/php-armv7
+
+RUN [ "cross-build-start" ]
 
 RUN apt-get update && apt-get install -y \
   rsync \
@@ -63,6 +65,8 @@ RUN curl -fsSL -o nextcloud.tar.bz2 \
  && mkdir -p /usr/src/nextcloud/data \
  && mkdir -p /usr/src/nextcloud/custom_apps \
  && chmod +x /usr/src/nextcloud/occ
+
+RUN [ "cross-build-end" ]
 
 COPY docker-entrypoint.sh /entrypoint.sh
 COPY config/* /usr/src/nextcloud/config/
